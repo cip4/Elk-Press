@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="The Elk Press">
+    <skin>
+        <groupId>org.cip4.elk</groupId>
+        <artifactId>elk-site-skin</artifactId>
+        <version>1.0.2</version>
+    </skin>
+    <bannerLeft>
+        <name>The Elk Press</name>
+        <src>logo.png</src>
+        <alt>The Elk Press</alt>
+        <href>http://www.cip4.org/open_source/elk/press/</href>
+    </bannerLeft>
+    <bannerRight>
+    </bannerRight>
+    <body>
+        <links>
+            <item name="CIP4" href="http://www.cip4.org"/>
+        </links>
+        <menu name=" The Elk Press">
+            <item name="Home" href="index.html"/>
+            <item name="Quick Start Guide" href="quickstart.html"/>
+            <!--<item name="Overview" href="overview.html"/>-->
+            <item name="Javadoc" href="apidocs/index.html"/>
+            <item name="Issue Tracking" href="http://www.cip4.org/jira/"/>
+            <item name="Downloads" href="downloads"/>
+            <item name="The Elk Framework" href="http://www.cip4.org/open_source/elk/"/>
+            <item name="Alces" href="http://www.cip4.org/open_source/alces/"/>
+        </menu>
+        ${reports} 
+    </body>
+</project>
