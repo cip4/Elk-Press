@@ -1,0 +1,44 @@
+<html> <head> <title> Overview of the Subscriptions package </title> </head>
+  <body>
+  <h1>Overview of the Subscriptions package</h1>
+  <P>
+  This package is used to handle the <em>Subscriptions</em> and Persistent
+  Channels in the <a
+  href="http://www.cip4.org/documents/jdf_specifications/JDF1.2.pdf">JDF
+  Specification Release 1.2</a>.
+  </p>
+  <p>
+  The main class of this package is the
+  {@link org.cip4.elk.impl.subscriptions.AsyncSimpleSubscriptionManager} which
+  implements the functionality of the
+  {@link org.cip4.elk.jmf.SubscriptionManager} interface.
+  </p>
+  <p>
+  To manage the subscriptions this package
+  include a {@link org.cip4.elk.impl.subscriptions.SubscriptionContainer} which
+  keep track of the {@link org.cip4.elk.impl.subscriptions.Subscription}s that
+  are currently subscribed.
+  </p>
+  <p>
+  It contains a {@link org.cip4.elk.impl.subscriptions.BaseICSSubscriber} and a
+  {@link org.cip4.elk.impl.subscriptions.BaseICSUnsubscriber} that handles the
+  registering and unregistering of the subscriptions. These are thus classes to
+  reduce the work of the <code>AsyncSimpleSubscritpionManager</code>.
+  The <code>AsyncSimpleSubscritpionManager</code> listens events, keeps track of 
+  which <em>Queries</em> are supported, receives
+  <em>Queries</em> and the <em>StopPersChParams</em> and delegates it to the 
+  <code>BaseICSSubscriber</code> and the <code>BaseICSUnsubscriber</code> for the 
+  registering and unregistering of the <code>Subscritpion</code>.
+  </p>
+  <p>
+  The package also contains three classes for handling of Time triggered events
+  (The Query/Subscription/@TimeEvent) and an
+  {@link org.cip4.elk.impl.subscriptions.EventForwarder} which is used in
+  integration with <a href="http://mule.codehaus.org">Mule</a> to accomplish 
+  the asynchronous messaging of subcribed events.
+  </p>
+  <p>
+  author: <a href="mailto:olst6875@student.uu.se">Ola Stering</a>
+  <hr>
+  Last modified: 2005-05-27
+  </body> </html>
