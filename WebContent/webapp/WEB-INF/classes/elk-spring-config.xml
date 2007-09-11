@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">-->
+<!DOCTYPE beans SYSTEM "spring-beans.dtd">
+<beans>
+	<bean id="fileUtil" class="org.cip4.elk.impl.util.URLAccessTool" singleton="true">
+		<!-- Proxy settings
+        <property name="proxyHost">
+            <value>proxy</value>
+        </property>
+        <property name="proxyPort">
+            <value>8080</value>
+        </property>
+        -->
+	</bean>
+	<bean id="deviceConfig" class="org.cip4.elk.impl.device.SimpleDeviceConfig" singleton="true">
+		<!-- Defautls to http://IP_ADDRESS:8080/elk/output/ -
+        <property name="JDFOutputURL">
+            <value>http://localhost:8080/elk/output/</value>
+        </property>
+        -->
+		<!-- Defautls to javax.servlet.context.tempdir -
+        <property name="localJDFOutputURL">
+            <value>file:/Users/clabu/Documents/workarea/Elk/testarea/jakarta-tomcat-5.0.30/webapps/elk/files/public</value>
+        </property>
+        -->
+		<!-- Defaults to javax.servlet.context.tempdir -
+        <property name="JDFTempURL">
+            <value>file:/Users/clabu/Documents/workarea/Elk/testarea/jakarta-tomcat-5.0.30/webapps/elk/files/private</value>
+        </property>
+        -->
+		<!-- Defaults to {appContext}/config/Device.xml -
+        <property name="deviceConfigURL">
+            <value>file://absolute/path/to/Device.xml</value>
+        </property>
+        -->
+		<!-- errors when reading file name with whitespaces -->
+		
+	</bean>
+	<bean id="queue" class="org.cip4.elk.impl.queue.MemoryQueue" singleton="true" init-method="init">
+		<constructor-arg index="0">
+			<ref bean="deviceConfig"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<value>5</value>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<ref bean="fileUtil"/>
+		</constructor-arg>
+		<property name="process">
+			<ref bean="process"/>
+		</property>
+	</bean>
+	
+	<bean id="process" class="org.cip4.elk.impl.device.process.ConventionalPrintingProcessSimu" singleton="true" init-method="init">
+		<constructor-arg>
+			<ref bean="deviceConfig"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="queue"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="fileUtil"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="outgoingDispatcher"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="fileRepository"/>
+		</constructor-arg>
+		<property name="incomingDispatcher">
+			<ref bean="incomingDispatcher"/>
+		</property>
+	</bean>
+	<bean id="simu" class="org.cip4.elk.impl.device.process.simulation.ConfSimuHandler" singleton="true" init-method="init">
+		</bean>
+
+	<!-- SubmitQueueEntryProcessor for Synchronous responses -->
+	<!--<bean id="submitQueueEntryProcessor"
+        class="org.cip4.elk.impl.queue.jmf.SubmitQueueEntryJMFProcessor" singleton="true">
+        <constructor-arg>
+            <ref bean="deviceConfig"/>
+        </constructor-arg>
+        <constructor-arg>
+            <ref bean="queue"/>
+        </constructor-arg>
+        <constructor-arg>
+            <ref bean="fileUtil"/>
+        </constructor-arg>
+    </bean>
+    -->
+	<!-- SubmitQueueEntry for Asynchronous responses -->
+	<bean id="submitQueueEntryProcessor" class="org.cip4.elk.impl.queue.jmf.SubmitQueueEntryAsyncJMFProcessor" singleton="false">
+		<constructor-arg index="0">
+			<ref bean="queue"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<ref bean="preProcessor"/>
+		</constructor-arg>
+	</bean>
+	<bean id="statusProcessor" class="org.cip4.elk.impl.device.jmf.StatusJMFProcessor" singleton="true">
+		<constructor-arg>
+			<ref bean="process"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="queue"/>
+		</constructor-arg>
+	</bean>
+	<bean id="queueStatusProcessor" class="org.cip4.elk.impl.queue.jmf.QueueStatusJMFProcessor" singleton="true">
+		<constructor-arg>
+			<ref bean="deviceConfig"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="queue"/>
+		</constructor-arg>
+	</bean>
+	<bean id="closeQueueProcessor" class="org.cip4.elk.impl.queue.jmf.CloseQueueJMFProcessor" singleton="true">
+		<constructor-arg>
+			<ref bean="deviceConfig"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="queue"/>
+		</constructor-arg>
+	</bean>
+	<bean id="openQueueProcessor" class="org.cip4.elk.impl.queue.jmf.OpenQueueJMFProcessor" singleton="true">
+		<constructor-arg>
+			<ref bean="deviceConfig"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="queue"/>
+		</constructor-arg>
+	</bean>
+	<bean id="removeQueueEntryProcessor" class="org.cip4.elk.impl.queue.jmf.RemoveQueueEntryJMFProcessor" singleton="true">
+		<constructor-arg>
+			<ref bean="deviceConfig"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="queue"/>
+		</constructor-arg>
+	</bean>
+	<bean id="holdQueueProcessor" class="org.cip4.elk.impl.queue.jmf.HoldQueueJMFProcessor" singleton="true">
+		<constructor-arg>
+			<ref bean="deviceConfig"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="queue"/>
+		</constructor-arg>
+	</bean>
+	<bean id="resumeQueueProcessor" class="org.cip4.elk.impl.queue.jmf.ResumeQueueJMFProcessor" singleton="true">
+		<constructor-arg>
+			<ref bean="deviceConfig"/>
+		</constructor-arg>
+		<constructor-arg>
+			<ref bean="queue"/>
+		</constructor-arg>
+	</bean>
+	<bean id="knownMessagesProcessor" class="org.cip4.elk.impl.jmf.KnownMessagesJMFProcessor" singleton="true">
+		<property name="incomingJMFDispatcher">
+			<ref bean="incomingDispatcher"/>
+		</property>
+	</bean>
+	<bean id="knownDevicesProcessor" class="org.cip4.elk.impl.jmf.KnownDevicesJMFProcessor" singleton="true">
+		<constructor-arg>
+			<ref bean="process"/>
+		</constructor-arg>
+	</bean>
+	<bean id="submissionMethodsProcessor" class="org.cip4.elk.impl.jmf.SubmissionMethodsJMFProcessor" singleton="true">
+		<constructor-arg>
+			<ref bean="deviceConfig"/>
+		</constructor-arg>
+	</bean>
+    <bean id="abortQueueEntryProcessor"
+        class="org.cip4.elk.impl.queue.jmf.AbortQueueEntryJMFProcessor"
+        singleton="true">
+        <constructor-arg index="0">
+            <ref bean="queue"/>
+        </constructor-arg>
+    </bean>
+    <bean id="requestForAuthenticationProcessor"
+        class="org.cip4.elk.impl.jmf.RequestForAuthenticationJMFProcessor"
+        singleton="true">
+        <property name="RFAJMFProcessor">
+            <ref bean="rfaJmfProcessor"/>
+        </property>
+    </bean>
+	<bean id="notImplementedProcessor" class="org.cip4.elk.impl.jmf.NotImplementedJMFProcessor" singleton="true"/>
+	
+    <bean id="rfaJmfProcessor"
+        class="org.cip4.elk.impl.util.security.ElkRFAJMFProcessor"
+        singleton="true">
+        <property name="outgoingJMFDispatcher">
+            <ref bean="outgoingDispatcher"/>
+        </property>       
+        <property name="authenticationHandler">
+            <ref bean="authHandler"/>
+        </property>       
+    </bean>   
+    <bean id="authHandler"
+        class="org.cip4.elk.impl.util.security.ElkAuthenticationHandler"
+    	singleton="true" init-method="init" destroy-method="shutDown">
+        <property name="config">
+            <ref bean="deviceConfig"/>
+        </property>       
+        <property name="RFAProcessor">
+            <ref bean="rfaJmfProcessor"/>
+        </property>       
+    </bean>       
+
+
+	<bean id="incomingDispatcher" class="org.cip4.elk.impl.jmf.SubscribingIncomingJMFDispatcher" singleton="true">
+		<property name="processors">
+			<map>
+				<entry key="default">
+					<ref bean="notImplementedProcessor"/>
+				</entry>
+				<entry key="StopPersistentChannel">
+					<ref bean="stopPersChProcessor"/>
+				</entry>
+				<entry key="SubmitQueueEntry">
+					<ref bean="submitQueueEntryProcessor"/>
+				</entry>
+				<entry key="QueueStatus">
+					<ref bean="queueStatusProcessor"/>
+				</entry>
+				<entry key="KnownMessages">
+					<ref bean="knownMessagesProcessor"/>
+				</entry>
+				<entry key="KnownDevices">
+					<ref bean="knownDevicesProcessor"/>
+				</entry>
+				<entry key="Status">
+					<ref bean="statusProcessor"/>
+				</entry>
+				<entry key="RemoveQueueEntry">
+					<ref bean="removeQueueEntryProcessor"/>
+				</entry>
+				<entry key="CloseQueue">
+					<ref bean="closeQueueProcessor"/>
+				</entry>
+				<entry key="OpenQueue">
+					<ref bean="openQueueProcessor"/>
+				</entry>
+				<entry key="Events">
+					<ref bean="eventsProcessor"/>
+				</entry>
+				<entry key="HoldQueue">
+					<ref bean="holdQueueProcessor"/>
+				</entry>
+				<entry key="ResumeQueue">
+					<ref bean="resumeQueueProcessor"/>
+				</entry>
+				<entry key="SubmissionMethods">
+					<ref bean="submissionMethodsProcessor"/>
+				</entry>
+                <entry key="AbortQueueEntry">
+                    <ref bean="abortQueueEntryProcessor"/>
+                </entry>
+                <entry key="RequestForAuthentication">
+                    <ref bean="requestForAuthenticationProcessor"/>
+                </entry>
+			</map>
+		</property>
+		<property name="subscriptionManager">
+			<ref bean="subscriptionManager"/>
+		</property>
+		<property name="config">
+			<ref bean="deviceConfig"/>
+		</property>
+	</bean>
+	<!-- Dispatcher for Asynchronous outgoing messages -->
+	<bean id="outgoingDispatcher" class="org.cip4.elk.impl.jmf.AsyncHttpOutgoingJMFDispatcher" singleton="false" abstract="false" lazy-init="default" autowire="default" dependency-check="default">
+		<constructor-arg>
+			<ref bean="deviceConfig"/>
+		</constructor-arg>
+	</bean>
+	<!-- Dispatcher for Synchronous outgoing messages -->
+	<!-- 
+    <bean id="outgoingDispatcher" class="org.cip4.elk.impl.jmf.SyncHttpOutgoingJMFDispatcher"
+        singleton="true" abstract="false" lazy-init="default" autowire="default"
+        dependency-check="default">
+        <constructor-arg>
+            <ref bean="deviceConfig"/>
+        </constructor-arg>
+    </bean>
+    -->
+	<!-- Synchronous Subscription manager -->
+	<!--
+    <bean id="subscriptionManager" class="org.cip4.elk.impl.jmf.SimpleSubscriptionManager"
+        singleton="true">
+        <constructor-arg index="0">
+            <ref bean="outgoingDispatcher"/>
+        </constructor-arg>
+        <constructor-arg index="1">
+            <ref bean="incomingDispatcher"/>
+        </constructor-arg>
+        <constructor-arg>
+            <ref bean="deviceConfig"/>
+        </constructor-arg>
+        <constructor-arg>
+            <map>
+                <entry key="org.cip4.elk.queue.QueueStatusEvent">
+                    <value>QueueStatus</value>
+                </entry>
+                <entry key="org.cip4.elk.device.process.ProcessStatusEvent">
+                    <value>Status</value>
+                </entry>
+            </map>
+        </constructor-arg>
+    </bean>
+    -->
+	<!-- Asynchronous subscription manager -->
+	<bean id="subscriptionManager" class="org.cip4.elk.impl.subscriptions.AsyncSimpleSubscriptionManager" singleton="true" destroy-method="destroy">
+		<constructor-arg index="0">
+			<ref bean="outgoingDispatcher"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<ref bean="deviceConfig"/>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<map>
+				<entry key="org.cip4.elk.queue.QueueStatusEvent">
+					<value>QueueStatus</value>
+				</entry>
+				<entry key="org.cip4.elk.device.process.ProcessStatusEvent">
+					<value>Status</value>
+				</entry>
+				<!-- This listener can be added if the Process is something else than 'Approval' -->
+				<entry key="org.cip4.elk.device.process.ProcessAmountEvent">
+					<value>Amount</value>
+				</entry>
+			</map>
+		</constructor-arg>
+		<constructor-arg index="3">
+			<list>
+				<value>Events</value>
+				<value>KnownDevices</value>
+				<value>KnownMessages</value>
+				<value>QueueStatus</value>
+				<value>Status</value>
+				<value>SubmissionMethods</value>
+			</list>
+		</constructor-arg>
+		<property name="incomingDispatcher">
+			<ref bean="incomingDispatcher"/>
+		</property>
+	</bean>
+	<bean id="eventsProcessor" class="org.cip4.elk.impl.jmf.EventsJMFProcessor" singleton="true">
+		<constructor-arg>
+			<ref bean="subscriptionManager"/>
+		</constructor-arg>
+	</bean>
+	<bean id="stopPersChProcessor" class="org.cip4.elk.impl.jmf.StopPersistentChannelJMFProcessor" singleton="true">
+		<constructor-arg>
+			<ref bean="subscriptionManager"/>
+		</constructor-arg>
+	</bean>
+	<bean id="fileRepository" class="org.cip4.elk.impl.util.FileRepository" singleton="true">
+		<constructor-arg index="0">
+			<map>
+				<entry key="text/plain">
+					<value>txt</value>
+				</entry>
+				<entry key="application/vnd.cip4-jdf+xml">
+					<value>jdf</value>
+				</entry>
+				<entry key="application/vnd.cip4-jmf+xml">
+					<value>jmf</value>
+				</entry>
+				<entry key="multipart/related">
+					<value>mjm</value>
+				</entry>
+				<entry key="application/pdf">
+					<value>pdf</value>
+				</entry>
+				<entry key="text/xml">
+					<value>xml</value>
+				</entry>
+			</map>
+		</constructor-arg>
+	</bean>
+	<bean id="preProcessor" singleton="true" class="org.cip4.elk.impl.jmf.preprocess.SimpleJDFPreprocessor">
+		<constructor-arg index="0">
+			<ref bean="queue"/>
+		</constructor-arg>
+		<constructor-arg index="1">
+			<ref bean="outgoingDispatcher"/>
+		</constructor-arg>
+		<constructor-arg index="2">
+			<ref bean="incomingDispatcher"/>
+		</constructor-arg>
+		<constructor-arg index="3">
+			<ref bean="deviceConfig"/>
+		</constructor-arg>
+		<constructor-arg index="4">
+			<ref bean="fileRepository"/>
+		</constructor-arg>
+	</bean>
+</beans>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "spring-beans.dtd">
+<beans>
+    <bean id="org.cip4.elk.impl"
+        class="org.springframework.context.support.ClassPathXmlApplicationContext"
+        abstract="false" singleton="true" lazy-init="default" autowire="default" dependency-check="default">
+        <constructor-arg index="0">
+            <list>
+                <value>elk-spring-config.xml</value>
+            </list>
+        </constructor-arg>
+    </bean>
+</beans>
