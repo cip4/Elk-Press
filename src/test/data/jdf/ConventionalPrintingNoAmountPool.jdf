@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JDF DescriptiveName="BEILAGE &quot;EMK&quot;" ICSVersions="MISBC_L01-1.0" ID="jdfNode000013" JobID="650578_" Status="Waiting" Type="Product" Version="1.2" xmlns="http://www.CIP4.org/JDFSchema_1_1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><ResourcePool><Contact Class="Parameter" ContactTypes="Customer" ID="jdfCont000013" Status="Available">
+      <Company OrganizationName=" &amp;" diso:OrganizationName2=" GmbH" xmlns:diso="http://www.ssb-diso.de"/>
+      <Address City="0" Country="Deutschland" PostBox="166"/>
+      <ComChannel ChannelType="Phone" Locator="0"/>
+      <ComChannel ChannelType="Fax" Locator="0"/>
+    </Contact>
+    <LayoutIntent Class="Intent" ID="jdfLint000087" Status="Available">
+      <FinishedDimensions Actual="566.929 779.528 110.551" DataType="ShapeSpan"/>
+      <Pages Actual="16" DataType="IntegerSpan"/>
+    </LayoutIntent>
+    <ColorPool Class="Parameter" ID="jdfCP000013" Locked="false" Status="Available">
+      <Color Name="Cyan"/>
+      <Color Name="Magenta"/>
+      <Color Name="Yellow"/>
+      <Color Name="Black"/>
+    </ColorPool>
+    <ColorantControl Class="Parameter" ID="jdfCC000072" PartIDKeys="Side" Status="Available">
+      <ColorPoolRef rRef="jdfCP000013"/>
+      <ColorantControl Side="Front">
+        <ColorantParams>
+          <SeparationSpec Name="Cyan"/>
+          <SeparationSpec Name="Magenta"/>
+          <SeparationSpec Name="Yellow"/>
+          <SeparationSpec Name="Black"/>
+        </ColorantParams>
+      </ColorantControl>
+      <ColorantControl Side="Back">
+        <ColorantParams/>
+      </ColorantControl>
+    </ColorantControl>
+    <ExposedMedia Class="Handling" ID="jdfEM000072" PartIDKeys="Side" PartUsage="Implicit" Status="Available">
+      <MediaRef rRef="jdfM000146"/>
+      <ExposedMedia Side="Front">
+        <ExposedMedia Separation="Cyan"/>
+        <ExposedMedia Separation="Magenta"/>
+        <ExposedMedia Separation="Yellow"/>
+        <ExposedMedia Separation="Black"/>
+      </ExposedMedia>
+      <ExposedMedia Side="Back"/>
+    </ExposedMedia>
+    <Media Class="Consumable" ID="jdfM000146" MediaType="Plate" Status="Available"/>
+    <Component AmountRequired="19950" Class="Quantity" ComponentType="FinalProduct" DescriptiveName="BEILAGE &quot;EMK&quot;" ID="jdfComp000099" PartUsage="Implicit" Status="Unavailable"/>
+    <Component AmountRequired="19950" Class="Quantity" ComponentType="PartialProduct" DescriptiveName="printedWebs" ID="jdfComp000100" PartIDKeys="SignatureName SheetName" Status="Unavailable">
+      <Component ProductType="Body" SignatureName="Sig_1">
+        <Component SheetName="Sheet_0">
+          <Component Condition="Good" IsWaste="false"/>
+          <Component Condition="Waste" IsWaste="true"/>
+        </Component>
+      </Component>
+    </Component>
+    <Media Brand="SC-UPM-CAT H" Class="Consumable" DescriptiveName="SC-UPM-CAT H" Dimension="2437.795 0" ID="jdfM000147" MediaType="Paper" MediaUnit="Sheet" ProductID="20200405" Status="Available" Thickness="54.0" Weight="54.0"/>
+    <Device Class="Implementation" DescriptiveName="Rotoman N" DeviceID="2800" FriendlyName="Rotoman N" ID="jdfD000078" Locked="false" Status="Available">
+      <CostCenter CostCenterID="2800"/>
+    </Device>
+    <Layout Class="Parameter" ID="jdfLay000076" Status="Unavailable">
+      <MediaRef rRef="jdfM000147"/>
+      <agfa:PrepsTemplate agfa:Name="200x275\Rolle\200x275_RH_86er.tpl" xmlns:agfa="http://www.agfa.com/w3c/gs/jdf/agfaextensions.xsd"/>
+    </Layout>
+  </ResourcePool><ResourceLinkPool>
+    <LayoutIntentLink Usage="Input" rRef="jdfLint000087"/>
+    <ComponentLink Amount="19950" Usage="Output" rRef="jdfComp000099"/>
+  </ResourceLinkPool>
+  <NodeInfo FirstStart="2005-11-07T00:00:00+01:00">
+    <Employee Roles="CSR">
+      <Person AdditionalNames="WOL" FamilyName="Silvia Wolfers"/>
+    </Employee>
+  </NodeInfo>
+  <Comment Name="CustomerOrderNumber">Beilage &quot;EMK&quot; für MünzenRevue 12/05</Comment>
+  <AuditPool>
+    <Created AgentName="JMC" AgentVersion="0.4.8" Author="Wilfried Böttcher" TimeStamp="2005-11-07T00:00:00+01:00"/>
+    
+  </AuditPool>
+  <CustomerInfo CustomerID="102944">
+    <ContactRef rRef="jdfCont000013"/>
+  </CustomerInfo>
+  <JDF DescriptiveName="16 SEITEN 4/4-FARBIG" ID="jdfLeaf000374" JobPartID="auftl016800" Status="Waiting" Type="Product" Version="1.2" diso:JobComponentEstimateID="1" xmlns:diso="http://www.ssb-diso.de">
+    <ResourcePool>
+      <LayoutIntent Class="Intent" ID="jdfLint000088" Status="Available">
+        <Pages Actual="16" DataType="IntegerSpan"/>
+        <PageVariance Actual="1" DataType="IntegerSpan"/>
+      </LayoutIntent>
+      <MediaIntent Class="Intent" ID="jdfMint000075" Status="Available">
+        <Dimensions Actual="566.929 779.528" DataType="XYPairSpan"/>
+      </MediaIntent>
+    </ResourcePool>
+    <ResourceLinkPool>
+      <LayoutIntentLink Usage="Input" rRef="jdfLint000088"/>
+      <MediaIntentLink Usage="Input" rRef="jdfMint000075"/>
+      <ComponentLink Usage="Output" rRef="jdfComp000100"/>
+    </ResourceLinkPool>
+    <JDF DescriptiveName="16 SEITEN 4/4-FARBIG" ID="jdfLeaf000375" JobPartID="001_1" Status="Waiting" Type="ProcessGroup" Version="1.2">
+      <JDF DescriptiveName="16 SEITEN 4/4-FARBIG_" ID="jdfLeaf000376" JobPartID="001_1_" Status="Waiting" Type="ConventionalPrinting" Version="1.2">
+        <ResourcePool>
+          <ConventionalPrintingParams Class="Parameter" ID="jdfCPP000078" PrintingType="WebFed" Status="Available"/>
+        </ResourcePool>
+        <ResourceLinkPool>
+          <ConventionalPrintingParamsLink Usage="Input" rRef="jdfCPP000078"/>
+          <MediaLink Amount="10000" Usage="Input" rRef="jdfM000147"/>
+          <DeviceLink Usage="Input" rRef="jdfD000078"/>
+          <ColorantControlLink Usage="Input" rRef="jdfCC000072"/>
+          <ExposedMediaLink ProcessUsage="Plate" Usage="Input" rRef="jdfEM000072"/>
+          <ComponentLink Usage="Output" rRef="jdfComp000100">
+            <AmountPool>
+              <PartAmount Amount="19950">
+                <Part Condition="Good" SheetName="Sheet_0" SignatureName="Sig_1"/>
+              </PartAmount>
+              <PartAmount Amount="998">
+                <Part Condition="Waste" SheetName="Sheet_0" SignatureName="Sig_1"/>
+              </PartAmount>
+            </AmountPool>
+          </ComponentLink>
+        </ResourceLinkPool>
+      </JDF>
+    </JDF>
+    <JDF Category="PrePress" DescriptiveName="16 SEITEN 4/4-FARBIG_PrePress" ID="jdfLeaf000377" JobPartID="001_1_0" Status="Waiting" Type="ProcessGroup" Version="1.2">
+      <JDF Category="FinalImaging" DescriptiveName="16 SEITEN 4/4-FARBIG_PlateMaking" ID="jdfLeaf000378" JobPartID="001_1_0_0" Status="Waiting" Type="ProcessGroup" Types="Imposition RIPing ImageSetting">
+        <ResourceLinkPool>
+          <LayoutLink Usage="Input" rRef="jdfLay000076"/>
+          <ColorantControlLink Usage="Input" rRef="jdfCC000072"/>
+          <ExposedMediaLink Usage="Output" rRef="jdfEM000072"/>
+        </ResourceLinkPool>
+      </JDF>
+    </JDF>
+  </JDF>
+</JDF>

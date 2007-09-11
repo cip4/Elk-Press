@@ -1,0 +1,17 @@
+<Device Class="Implementation" ID="ElkConventionalPrinting"
+    DeviceID="Elk ConventionalPrinting" JMFSenderID="Elk ConventionalPrinting"
+    KnownLocalizations="En" Manufacturer="CIP4"
+    ManufacturerURL="http://www.cip4.org"
+    DeviceType="Elk ConventionalPrinting (build @build.number@, @build.timestamp@)" 
+    ModelName="Elk ConventionalPrinting"
+    ModelNumber="build @build.number@, @build.timestamp@"
+    ModelDescription="Elk ConventionPrinting Reference Device"
+    ModelURL="http://www.cip4.org/open_source/elk/" Status="Available"
+    JMFURL="http://localhost:8080/elk/jmf" FriendlyName="Elk
+    ConventionalPrinting">
+    <DeviceCap CombinedMethod="None" GenericAttributes="ID ProductID
+        CustomerID SpawnIDs Class Status PartIDKeys SettingsPolicy
+        BestEffortExceptions OperatorInterventionExceptions
+        MustHonorExceptions DocIndex Locked DescriptiveName Brand"
+        Types="ConventionalPrinting"/>
+</Device>

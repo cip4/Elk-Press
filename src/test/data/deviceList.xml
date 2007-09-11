@@ -1,0 +1,18 @@
+<DeviceList>
+  <DeviceInfo DeviceStatus="Idle">
+ 	<Device Class="Implementation" DeviceID="Elk" ID="Elk" JMFSenderID="Elk" KnownLocalizations="En"
+    	ModelName="Borg Elk" Status="Available" JMFURL="http://localhost:8080/elk/jmf">
+    	<DeviceCap>
+        	<FeaturePool>
+            	<EnumerationState AllowedValueList="Mono ColorTransparency Photo" ID="sm"
+                	MacroRefs="ScanModeMacro" Name="ScanMode" UserDisplay="Display"/>
+	        </FeaturePool>
+    	</DeviceCap>
+    	<CostCenter CostCenterID="Bills Barbarber's"/>    
+	</Device>
+  </DeviceInfo>
+  <DeviceInfo DeviceStatus="Stopped">
+    <Device Class="Implementation" DeviceID="Rolle" ID="Gosta"
+      JMFSenderID="Not configured" JMFURL="Not configured" Status="Complete"/>
+  </DeviceInfo>
+</DeviceList>

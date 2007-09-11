@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Device
+    xmlns="http://www.CIP4.org/JDFSchema_1_1"   
+    DeviceID="Elk ConventionalPrinting" JMFSenderID="Elk ConventionalPrinting"
+    Manufacturer="CIP4"
+    ManufacturerURL="http://www.cip4.org"
+    DeviceType="Elk ConventionalPrinting (build @build.number@, @build.timestamp@)" 
+    ModelName="Elk ConventionalPrinting"
+    ModelNumber="build @build.number@, @build.timestamp@"
+    ModelDescription="Elk ConventionPrinting Reference Device"
+    ModelURL="http://www.cip4.org/open_source/elk/"
+    JMFURL="http://127.0.0.1:8080/elk-printing/jmf" FriendlyName="Elk ConventionalPrinting">
+    <DeviceCap GenericAttributes="ID ProductID
+        CustomerID SpawnIDs Class Status PartIDKeys SettingsPolicy
+        BestEffortExceptions OperatorInterventionExceptions
+        MustHonorExceptions DocIndex Locked DescriptiveName Brand"/>
+</Device>

@@ -1,0 +1,70 @@
+<Device 
+    xmlns="http://www.CIP4.org/JDFSchema_1_1"
+    Class="Implementation" ID="ElkApproval"
+    DeviceID="Elk Approval" JMFSenderID="Elk Approval"
+    KnownLocalizations="En" Manufacturer="CIP4"
+    ManufacturerURL="http://www.cip4.org"
+    DeviceType="Elk Approval (build @build.number@, @build.timestamp@)" 
+    ModelName="Elk Approval"
+    ModelNumber="build @build.number@, @build.timestamp@"
+    ModelDescription="Elk Approval Reference Device"
+    ModelURL="http://www.cip4.org/open_source/elk/" Status="Available"
+    JMFURL="http://localhost:8080/elk/jmf" FriendlyName="Elk Approval">
+    <DeviceCap CombinedMethod="None" GenericAttributes="ID ProductID
+        CustomerID SpawnIDs Class Status PartIDKeys SettingsPolicy
+        BestEffortExceptions OperatorInterventionExceptions
+        MustHonorExceptions DocIndex Locked DescriptiveName Brand"
+        Types="Approval">
+        <DevCaps Context="Resource" LinkUsage="Input" Name="RunList">
+            <Loc HelpText="The files that should be approved."/>
+            <DevCap Name="RunList" MinOccurs="1" MaxOccurs="INF">
+                <DevCap Name="LayoutElement">
+                    <DevCap Name="FileSpec" MinOccurs="1" MaxOccurs="1">
+                        <NameState Name="URL" HasDefault="false"/>
+                        <NameState Name="MimeType" HasDefault="false"/>
+                    </DevCap>
+                </DevCap>
+            </DevCap>
+        </DevCaps>
+        <DevCaps Context="Resource" LinkUsage="Input" Name="ApprovalParams">
+            <DevCap Name="ApprovalParams" MinOccurs="1" MaxOccurs="1">
+                <IntegerState Name="MinApprovals" ListType="SingleValue"
+                    MinOccurs="1" MaxOccurs="1"
+                    DefaultValue="1"/>
+                <DevCap Name="ApprovalPerson" MinOccurs="1" MaxOccurs="1000">
+                    <StringState ListType="SingleValue" Name="ApprovalRole"
+                        DefaultValue="Obligated">
+                        <Value AllowedValue="Group" ValueUsage="Allowed"/>
+                        <Value AllowedValue="Obligated" ValueUsage="Allowed"/>
+                        <Value AllowedValue="Informative" ValueUsage="Allowed"/>
+                    </StringState>
+                    <DevCap Name="Contact">
+                        <Loc HelpText="The person that should approve the
+                            files."/>
+                        <StringState ListType="SingleValue" Name="ContactTypes"
+                            DefaultValue="Approver">
+                            <Value AllowedValue="Approver" ValueUsage="Allowed"
+                            />
+                        </StringState>
+                        <DevCap Name="Person">
+                            <NameState Name="FirstName" HasDefault="false"/>
+                            <NameState Name="FamilyName" HasDefault="false"/>
+                            <DevCap Name="ComChannel" MinOccurs="1"
+                                MaxOccurs="1000">
+                                <StringState ListType="SingleValue"
+                                    Name="ChannelType" DefaultValue="Email">
+                                    <Value AllowedValue="Email"
+                                        ValueUsage="Allowed"/>
+                                    <Value AllowedValue="Phone"
+                                        ValueUsage="Allowed"/>
+                                </StringState>
+                                <NameState Name="Locator" HasDefault="false"/>
+                            </DevCap>
+                        </DevCap>
+                    </DevCap>
+                </DevCap>
+            </DevCap>
+        </DevCaps>
+        <DevCaps Name="ApprovalSuccess" LinkUsage="Output" Context="Resource"/>
+    </DeviceCap>
+</Device>
