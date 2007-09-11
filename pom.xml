@@ -1,0 +1,222 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- Basics -->
+    <groupId>org.cip4.elk</groupId>
+    <artifactId>elk-press</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>war</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>org.cip4.elk</groupId>
+            <artifactId>elk-api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>concurrent</groupId>
+            <artifactId>concurrent</artifactId>
+            <version>1.3.4</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <version>2.4</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.1.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring</artifactId>
+            <version>1.1.5</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-vfs</groupId>
+            <artifactId>commons-vfs</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
+            <version>1.0.4</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>jdom</groupId>
+            <artifactId>jdom</artifactId>
+            <version>1.0</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>3.8.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- Build Settings -->
+    <build>
+        <finalName>elk-press</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.0</version>
+                <configuration>
+                    <webappDirectory>webapp</webappDirectory>
+                    <archiveClasses>true</archiveClasses>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <configuration>
+                    <webAppSourceDirectory>webapp</webAppSourceDirectory>                
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-report-plugin</artifactId>
+            </plugin>
+            <!-- <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                </plugin> -->
+            <!-- <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <configuration>
+                <targetJdk>1.4</targetJdk>
+                </configuration>
+                </plugin> -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
+
+    <!-- Project Information -->
+    <name>The Elk Press</name>
+    <description>
+        A reference implementation of the Elk Framework that simulates
+        an sheet-fed offset printing press.
+    </description>
+    <url>http://www.cip4.org/open_source/elk/press/</url>
+    <inceptionYear>2004</inceptionYear>
+    <licenses>
+        <license>
+            <name>CIP4 Software License 2.0</name>
+            <url>src/LICENSE.txt</url>
+        </license>
+    </licenses>
+    <organization>
+        <name>CIP4</name>
+        <url>http://www.cip4.org</url>
+    </organization>
+    <developers>
+        <developer>
+            <id>clabu</id>
+            <name>Claes Buckwalter</name>
+            <email>claes.buckwalter@agfa.com</email>
+            <!--<url></url>-->
+            <organization>Agfa Grapchis NV</organization>
+            <organizationUrl>
+                http://www.agfa.com/en/gs/
+            </organizationUrl>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>brira</id>
+            <name>Brian Ray</name>
+            <email>bray@printable.com</email>
+            <url>http://kazavoo.com/blog/</url>
+            <organization>Printable Technologies, Inc</organization>
+            <organizationUrl>http://www.printable.com</organizationUrl>
+            <timezone>-5</timezone>
+        </developer>
+    </developers>
+    <contributors>
+        <contributor>
+            <name>Ola Stering</name>
+            <url>http://www.stering.se</url>
+            <organization>Uppsala University</organization>
+            <organizationUrl>http://www.uu.se</organizationUrl>
+            <timezone>+1</timezone>
+        </contributor>
+        <contributor>
+            <name>Marco Kornrumpf</name>
+            <organization>Arvato Systems, Germany</organization>
+            <organizationUrl>http://www.arvato.de</organizationUrl>
+            <timezone>+1</timezone>
+        </contributor>
+        <contributor>
+            <name>Markus Nyman</name>
+            <url>http://www.myman.se</url>
+            <organization>Uppsala University</organization>
+            <organizationUrl>http://www.uu.se</organizationUrl>
+            <timezone>+1</timezone>
+        </contributor>
+    </contributors>
+    <!-- Environment Settings -->
+    <issueManagement>
+        <system>JIRA</system>
+        <url>http://www.cip4.org/jira/browse/ELK</url>
+    </issueManagement>
+    <scm>
+        <connection>
+            scm:svn:http://cip4srv2.igd.fhg.de/svnroot/trunk/elk
+        </connection>
+        <developerConnection>
+            scm:svn:http://cip4srv2.igd.fhg.de/svnroot/trunk/elk
+        </developerConnection>
+        <!--<tag>HEAD</tag>-->
+        <url>http://cip4srv2.igd.fhg.de/websvn/</url>
+    </scm>
+    <repositories>
+        <repository>
+            <id>maven2-repository.dev.java.net</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://download.java.net/maven/2/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>exo</id>
+            <name>Java.net Repository for Maven</name>
+            <url>http://ubuntu.cica.es/mirrors/maven2/</url>
+            <layout>default</layout>
+        </repository>
+        <repository>
+            <id>www.cip4.org</id>
+            <name>The Elk Maven Repository</name>
+            <url>http://www.cip4.org/open_source/elk/maven/</url>
+            <layout>default</layout>
+        </repository>
+    </repositories>
+    <!--
+        <distributionManagement>
+        <site>
+        <id>ftp.cip4.org</id>
+        <url>ftp://ftp.cip4.org/elk/</url>
+        </site>
+        </distributionManagement>
+    -->
+</project>
