@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!DOCTYPE document PUBLIC "-//Apache Software Foundation//DTD XDOC 1.0//EN" "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<document>
+    <properties>
+        <title>Quick Start Guide</title>
+        <author email="claes.buckwalter-AT-agfa.com">Claes Buckwalter</author>        
+    </properties>
+    <body>
+        <section name="One Minute Quick Start Guide">
+            <ol>
+                <li>Install <a href="http://java.sun.com/j2se/1.5.0/download.jsp">Java JDK 5.0</a></li>
+                <li>Install <a href="http://tomcat.apache.org/">Apache Tomcat 5.5.x</a></li>
+                <li>Download and unpack the latest <a href="http://www.cip4.org/open_source/elk/downloads">Elk binary distribution</a> (<code>elk-<em>date</em>-bin.zip</code>)</li>
+                <li>Install the <em>Elk ConventionalPrinting JDF Device</em> by copying <code>elk-printing.war</code> to Tomcat's <code>webapps</code> folder</li>
+                <li>Start Tomcat</li>
+                <li>Verify that the Elk JDF Device is running by pointing your web browser to the URL <a href="http://localhost:8080/elk-printing/jmf"><code>http://localhost:8080/elk-printing/jmf</code></a></li>
+                <li>Connect your <em>JDF Controller</em> (for example <a href="http://www.cip4.org/open_source/elk/alces">Alces</a>) to the Elk JDF Device using the URL <a href="http://localhost:8080/elk-printing/jmf"><code>http://localhost:8080/elk-printing/jmf</code></a></li>
+            </ol>            
+        </section>
+        <section name="Quick Start Guide">
+                <subsection name="1 Requirements">
+                    <ul>
+                        <li>
+                            <a href="http://java.sun.com/j2se/1.5.0/download.jsp">Java JDK 5.0</a> (you can also use <a
+                                href="http://java.sun.com/j2se/1.4.2/download.html">J2SE 1.4.2 SDK</a> but
+                            JDK 5.0 is recommended) </li>
+                        <li>
+                            <a href="http://tomcat.apache.org/">Apache Tomcat 5.5.x</a> (if you are running J2SE 1.4.2
+                            you need Tomcat's "JDK 1.4 Compatability Package", or Tomcat 5.0.x.) </li>
+                        <li>A <em>JDF Controller</em> such as an MIS system, a prepress workflow controller, or our test
+                            tool <a href="http://www.cip4.org/open_source/elk/alces">Alces</a></li>
+                    </ul>
+                </subsection>
+                <subsection name="2 Installing Elk">
+                    <ol>
+                        <li>Download and unpack the latest <a href="http://www.cip4.org/open_source/elk/downloads/">binary
+                                distribution</a> (<code>elk-<em>date</em>-bin.zip</code>).</li>
+                        <li>Elk includes several reference <em>JDF Devices</em>, each in the form of a preconfigured
+                            Java web application WAR file. Copy the WAR file of the reference JDF Device you want to
+                            run, for example <code>elk-printing.war</code>, to Tomcat's <code>webapps</code> directory.
+                            You can run more than one JDF Device at the same time if you want to.</li>
+                        <li>Start Tomcat.</li>
+                        <li>Verify that the Elk reference JDF Device is running by pointing your web browser to the
+                            following URL: <a href="http://localhost:8080/elk-printing/jmf">
+                                <code>http://localhost:8080/<em>elk-printing</em>/jmf</code>
+                            </a> (if needed, substitute "localhost:8080" for your server address and port number, and
+                            "elk-printing" for the name of the WAR file you installed, excluding the .war-suffix).</li>
+                        <li>You should see a page similar to <a href="http://www.cip4.org/open_source/elk/elk/jmf">this one</a>. If
+                            you are having problems, check the log file <code>elk.log</code> which is written to the
+                            directory from where you started Tomcat.</li>
+                    </ol>
+                </subsection>
+                <subsection name="3 Running Elk">
+                    <ol>
+                        <li>Connect a <em>JDF Controller</em> (for example <a href="http://www.cip4.org/open_source/elk/alces"
+                            >Alces</a>) to the Elk reference <em>JDF Device</em> using the URL: <a href="http://localhost:8080/elk-printing/jmf">http://localhost:8080/elk-printing/jmf</a> (see paragraph 2.4 above for details)</li>
+                        <li>Send a <em>KnownMessages</em> JMF message to the JDF Device to find out what it can do.</li>
+                        <li>You can find sample JDF files to submit to the JDF Device in the binary distribution's <code>examples</code> directory.</li>
+                        <li>Have fun!</li>
+                    </ol>
+                </subsection>
+            </section>
+            <section name="Building Elk">
+                <subsection name="1 Requirements">
+                    <ul>
+                        <li>
+                            <a href="http://java.sun.com/j2se/1.5.0/download.jsp">Java JDK 5.0</a> (you can also use <a
+                                href="http://java.sun.com/j2se/1.4.2/download.html">J2SE 1.4.2 SDK</a> but
+                            JDK 5.0 is recommended) </li>
+                        <li>
+                            <a href="http://tomcat.apache.org/">Apache Tomcat 5.5.x</a> (if you are running J2SE 1.4.2
+                            you need Tomcat's "JDK 1.4 Compatability Package", or Tomcat 5.0.x.) </li>
+                        <li><a href="http://ant.apache.org">Apache Ant 16.x</a></li>
+                    </ul>
+                </subsection>
+                <subsection name="2 Building">
+                    <ol>
+                        <li>Download and unpack the latest <a href="http://www.cip4.org/open_source/elk/downloads">Elk source distribution</a> (<code>elk-<em>date</em>-src.zip</code>)</li>
+                        <li>Open a command line and go to the unpacked source distribution's directory</li>
+                        <li>Run the command <strong><code>ant</code></strong> to build Elk's binary and source distributions</li>
+                        <li>A <code>dist</code> directory will be created containing the following:
+                        <ul>
+                            <li><code>elk-<em>date</em>-bin</code> - a binary distribution</li>
+                            <li><code>elk-<em>date</em>-bin.zip</code> - a zip archive of the binary distribution</li>
+                            <li><code>elk-<em>date</em>-src</code> - a source distribution</li>
+                            <li><code>elk-<em>date</em>-src.zip</code> - a zip archive of the source distribution</li>
+                        </ul>
+                        The directory also contains WAR files for the reference JDF Devices and a JAR file containing the Elk classes.</li>
+                        <li>See the Quick Start Guide above for instruction on installing and running Elk</li>
+                    </ol>
+                    </subsection>
+            </section>
+    </body>
+</document>

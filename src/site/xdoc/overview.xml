@@ -1,0 +1,171 @@
+<?xml version="1.0"?>
+<!DOCTYPE document PUBLIC "-//Apache Software Foundation//DTD XDOC 1.0//EN" "http://maven.apache.org/dtd/xdoc_1_0.dtd">
+<document>
+    <properties>
+        <title>Overview</title>
+        <author email="claes.buckwalter-AT-agfa.com">Claes Buckwalter</author>
+    </properties>
+    <!--<meta name="keyword" content="Elk, JDF, Job Definition Format, CIP, java, Device, Device Framework"/>-->
+    <body>
+
+        <section name="1 Overview">
+            <p> The main goal of the Elk Framework project is to create an
+                application framework that provides the services needed by a JDF
+                    <em>Device</em> or <em>Controller</em>. The framework is
+                implemented in Java and is based on <a
+                    href="http://www.cip4.org">CIP4</a>'s open source JDF Java
+                SDK <a href="http://www.cip4.org/open_source/index.html"
+                    >JDFLib-J</a>. </p>
+            <p> A sub-goal of the project is to create a reference
+                implementation of the Elk Framework. The hope is that the
+                reference implementation will be able to serve as a test tool
+                and a starting point for others wishing to implement a JDF
+                enabled system. </p>
+            <p> This project is a work in progress. Any input or contributions
+                are welcome. </p>
+        </section>
+
+        <section name="2 The Elk Framework">
+            <p> The Elk Framework consists of a number of classes that specify
+                the services needed by a device or Controller. The class diagram
+                below gives an overview of the most important classes in the Elk
+                Framework. These are the classes that you would implement if you
+                wanted to create your own implementation of the Elk Framework.
+                The <a href="apidocs/index.html">JavaDocs</a> give detailed
+                descriptions of all classes in the diagram. </p>
+            <ul>
+                <li>
+                    <a href="uml/elk-framework.gif">Elk Framework Class Diagram
+                        (GIF)</a>
+                </li>
+                <li>
+                    <a href="uml/elk-framework.pdf">Elk Framework Class Diagram
+                        (PDF)</a>
+                </li>
+            </ul>
+            <p> The package <code>org.cip4.elk.jmf</code> defines classes for
+                handling JMF messages. <code>JMFProcessor</code>s are registered
+                with the <code>IncomingJMFDispatcher</code> that dispatches
+                incoming JMF messages to the processors. The
+                    <code>OutgoingJMFDispatcher</code> dispatches JMF messages
+                to other devices or controllers. The
+                <code>SubscriptionManager</code> is responsible for registering
+                subscriptions and sending JMF <em>Signals</em> to the
+                subscribers. </p>
+            <p> The class <code>org.cip4.elk.queue.Queue</code> represents a job
+                queue. The class
+                <code>org.cip4.elk.device.process.Process</code> represents a
+                device's process, the part of the device that executes
+                <em>JDF</em> and controls and underlying machine. </p>
+            <p> The class <code>org.cip4.elk.JDFElementFactory</code> is a
+                convenient way of creating new JDF elements. </p>
+            <p> The class <code>org.cip4.elk.Config</code> represents the
+                configuration of a device or controller. It is usually loaded at
+                startup and passed to the main components of a
+                device/controller, for example the <code>Queue</code> or
+                    <code>Process</code>. </p>
+        </section>
+
+        <section name="3 Reference Implementation">
+            <p> The Elk reference implementation is an implementation of the
+                classes specified by the Elk Framework. The reference
+                implementation is a JDF <em>Device</em> that implements the
+                    <em>Approval process</em> specified by the <a
+                    href="http://www.cip4.org/documents/jdf_specifications/JDF1.2.pdf"
+                    >JDF specification, 6.2.1 Approval</a>. The reference
+                implementation is implemented as a web application that is
+                deployed in a servlet container such as <a
+                    href="http://jakarta.apache.org/tomcat">Jakarta Tomcat</a>. </p>
+
+            <subsection name="3.1 Web Application Deployment Diagram">
+                <p> The UML deployment diagram below describes the components
+                    that the reference device web application consists of: </p>
+                <ul>
+                    <li>
+                        <a href="uml/ref-impl-webapp.gif">Web Application
+                            Deployment Diagram (GIF)</a>
+                    </li>
+                    <li>
+                        <a href="uml/ref-impl-webapp.pdf">Web Application
+                            Deployment Diagram (PDF)</a>
+                    </li>
+                </ul>
+            </subsection>
+            <subsection name="3.1.1 ElkStartupServlet">
+                <p> This servlet's sole purpose is to load the reference
+                    device's Spring configuration and configure event listeners.
+                </p>
+            </subsection>
+            <subsection name="3.1.2 DispatchingJMFServlet (/jmf)">
+                <p> This is the entry point for all JMF messages to the
+                    reference device. It delegates JMF messages to the
+                        <code>IncomingJMFDispatcher</code>, described in section
+                        <a href="#3.2_JMF_Message_Routing">3.2</a> below. </p>
+            </subsection>
+            <subsection name="3.1.3 ElkMimeTestJMFServlet (/mime)">
+                <p> This servlet is for testing JMF clients that post MIME
+                    packages and is not connected with the reference device in
+                    any way. It is included for test purposes. </p>
+            </subsection>
+            <subsection name="3.1.2 LoggingJMFServlet (/logJmf)">
+                <p> This servlet logs all JMF messages it receives and generates
+                    a generic response. It is not part of the reference device
+                    but is included for testing purposes. For example, it can be
+                    used for testing that the reference device registers
+                    subscriptions and sends <em>Signal</em>s correctly by
+                    registering this servlets URL as the subscriber's URL. </p>
+            </subsection>
+            <subsection name="3.2 JMF Message Routing">
+                <p> The UML class diagram below shows the reference device's
+                    concrete implementations of the Elk Framework's classes for
+                    JMF message routing. The device has a servlet
+                        <code>DispatchingJMFServlet</code> that handles all
+                    incoming messages. The servlet delegates the incoming
+                    messages to an <code>IncomingJMFDispatcher</code> that in
+                    turn dispatches messages to message handlers,
+                        <code>JMFProcessor</code>s. The dispatcher also looks
+                    for subscriptions in each message and registers any
+                    subscriptions with the <code>SubscriptionManager</code>. The
+                        <code>SubscriptionManager</code> listens for events from
+                    the device's <code>Queue</code> and <code>Process</code>.
+                    When it receives an event it dispatches <em>Signal</em>s
+                    using the <code>OutgoingJMFDispatcher</code>. </p>
+                <ul>
+                    <li>
+                        <a href="uml/ref-impl-jmf-routing.gif">JMF Message
+                            Routing Class Diagram (GIF)</a>
+                    </li>
+                    <li>
+                        <a href="uml/ref-impl-jmf-routing.pdf">JMF Message
+                            Routing Class Diagram (PDF)</a>
+                    </li>
+                </ul>
+            </subsection>
+
+            <subsection name="3.3 Queue and Process">
+                <p> This UML class diagram shows the reference device's queue
+                    and process implementations:</p>
+                <ul>
+                    <li>
+                        <a href="uml/ref-impl-queue-process.gif">Queue and
+                            Process Class Diagram (GIF)</a>
+                    </li>
+                    <li>
+                        <a href="uml/ref-impl-queue-process.pdf">Queue and
+                            Process Class Diagram (PDF)</a>
+                    </li>
+                </ul>
+                <p>The concrete queue implementation <code>MemoryQueue</code> is
+                    completely abstracted from all JMF message processing which
+                    is instead done by a number of <code>JMFProcessor</code>s.
+                    Each <code>JMFProcessor</code> handles a different type of
+                    queue-related JMF command/query. The queue listens to status
+                    changes in the reference device's <code>Process</code> by
+                    implementing <code>ProcessStatusListener</code>. </p>
+                <p> The reference device's process <code>ApprovalProcess</code>
+                    has a reference to the queue which it polls for new jobs to
+                    execute. </p>
+            </subsection>
+        </section>
+    </body>
+</document>
