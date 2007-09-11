@@ -4,6 +4,12 @@
 package org.cip4.elk.impl.jmf.preprocess;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -14,6 +20,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.Vector;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
 import org.cip4.elk.ElkTestCase;
 import org.cip4.elk.JDFElementFactory;
 import org.cip4.elk.device.DeviceConfig;
@@ -57,7 +65,21 @@ public class SimpleJDFPreprocessorTest extends ElkTestCase {
     Queue mq;
 
     BaseProcess p;
+    
+    File _configFile;
 
+    private synchronized File loadConfig(String configPath) throws FileNotFoundException, IOException {
+    	if (_configFile == null) {
+	    	InputStream configIn = getResourceAsStream(configPath);
+	    	_configFile = File.createTempFile("DeviceConfig", ".xml");
+	    	OutputStream configOut = new FileOutputStream(_configFile);
+	    	IOUtils.copy(configIn, configOut);
+	    	IOUtils.closeQuietly(configIn);
+	    	IOUtils.closeQuietly(configOut);
+    	}
+	    return _configFile;
+    }
+    
     /*
      * @see TestCase#setUp()
      */
@@ -65,7 +87,7 @@ public class SimpleJDFPreprocessorTest extends ElkTestCase {
         super.setUp();
         _accessTool = new URLAccessTool();
         // Load configuration
-        File deviceFile = new File("src/test/" + _testDataPath + "ApprovalDevice.xml");
+        File deviceFile = loadConfig(_testDataPath + "ApprovalDevice.xml");
         assertTrue("Tests that file exists: " + deviceFile, deviceFile.exists());
         _deviceConfig = new SimpleDeviceConfig(UrlUtil.fileToUrl(deviceFile, true), _accessTool);
         assertNotNull(_deviceConfig.getDeviceConfig());        
@@ -91,13 +113,6 @@ public class SimpleJDFPreprocessorTest extends ElkTestCase {
         _jdfpre.setValidation(true);
         
         assertNotNull(p.getDeviceInfo(true));
-    }
-
-    public void testSimpleJDFPreprocessor() {
-
-    }
-
-    public void testAppendNotification() {
     }
 
     public void testEnqueueJDF() {
@@ -136,25 +151,6 @@ public class SimpleJDFPreprocessorTest extends ElkTestCase {
          * //System.out.println(qe);
          *  
          */
-    }
-
-    public void testDownloadJdf() {
-
-    }
-    
-    public void testJDFTemplate() {
-        JDFJMF knownDevicesQuery = (JDFJMF) JDFElementFactory.getInstance().createJDFElement("SimpleJDFPreprocessor_KnownDevices");
-        System.out.println(knownDevicesQuery);
-    }
-    
-
-    public void testValidateJDFNode() {
-    }
-
-    public void testCheckResources() {
-    }
-
-    public void testProcessHandles() {
     }
 
     public JDFCommand createCommand(String type, JDFQueueSubmissionParams sp) {

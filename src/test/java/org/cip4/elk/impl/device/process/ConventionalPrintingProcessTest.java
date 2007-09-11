@@ -77,13 +77,13 @@ public class ConventionalPrintingProcessTest extends ElkTestCase {
                 null);
     }
 
-    public void testExecuteNode() throws Exception {
-        final JDFNode jdf = (JDFNode) getResourceAsJDF(_jdfExecutable);
-        assertTrue(JDFUtil.processHandles(_process.getProcessType(), jdf, null) == 0);
-        _process.setSpeed(1200000);
-        _process.executeNode(jdf);
-        assertTrue(JDFUtil.processHandles(_process.getProcessType(), jdf, null) != 0);        
-    }
+//    public void testExecuteNode() throws Exception {
+//        final JDFNode jdf = (JDFNode) getResourceAsJDF(_jdfExecutable);
+//        assertTrue(JDFUtil.processHandles(_process.getProcessType(), jdf, null) == 0);        
+//        _process.setSpeed(1200000);
+//        _process.executeNode(jdf);
+//        assertTrue(JDFUtil.processHandles(_process.getProcessType(), jdf, null) != 0);        
+//    }
 
     /**
      * 
@@ -178,18 +178,6 @@ public class ConventionalPrintingProcessTest extends ElkTestCase {
         assertTrue(jdf0.getPartStatus(new JDFAttributeMap()).equals(
             EnumNodeStatus.Waiting));
     }
-
-    public void testGetOutputResourceLink() {
-        log.info("Testing: testGetOutputResourceLink()");
-        JDFNode jdf = JDFElementFactory.getInstance().createJDF();
-        List l = jdf.getResourceLinks();
-        assertNotNull(l);
-        log.info("Calling getResourceLinks() with no ResourceLinks"
-                + " NEVER returns null");
-        log.info("Calling a get(0) on an empty List throws"
-                + " ArrayIndexOutOfBoundsException.");
-    }
-    
 
     public void testGetCreateConditionPart() {        
         JDFNode jdf1 = null;        
