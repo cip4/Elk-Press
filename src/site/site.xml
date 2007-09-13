@@ -24,7 +24,9 @@
             <item name="Javadoc" href="apidocs/index.html"/>
             <item name="Issue Tracking" href="http://www.cip4.org/jira/"/>
             <item name="Downloads" href="downloads"/>
-            <item name="The Elk Framework" href="http://www.cip4.org/open_source/elk/"/>
+        </menu>
+        <menu name="Related Projects">
+        	<item name="The Elk Framework" href="http://www.cip4.org/open_source/elk/"/>
             <item name="Alces" href="http://www.cip4.org/open_source/alces/"/>
         </menu>
         ${reports} 
