@@ -59,7 +59,7 @@ public class JobServlet extends QueueServlet implements javax.servlet.Servlet {
         super.init();
         log.info("Initializing " + SERVLET_NAME + "...");
         _urlTool = new URLAccessTool();
-        initStyleSheet();
+//        initStyleSheet();
         log.info("Initialized " + SERVLET_NAME + ".");
     }
 
@@ -230,7 +230,7 @@ public class JobServlet extends QueueServlet implements javax.servlet.Servlet {
                     JDFConstants.WILDCARD));
         // Stores data for XSLT in request
         req.setAttribute("jdf", jdf);
-        req.setAttribute("xsl", UrlUtil.fileToUrl(_jdf2html, true));
+//        req.setAttribute("xsl", UrlUtil.fileToUrl(_jdf2html, true));
         req.getRequestDispatcher("/job/showJob.jsp").forward(req, res);
     }
 
