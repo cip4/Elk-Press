@@ -67,6 +67,11 @@
     <!-- Build Settings -->
     <build>
         <finalName>elk-press</finalName>
+        <testResources>
+            <testResource>
+                <directory>webapp/WEB-INF/classes</directory>
+            </testResource>
+        </testResources>   
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
