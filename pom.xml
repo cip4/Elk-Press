@@ -68,9 +68,12 @@
     <build>
         <finalName>elk-press</finalName>
         <testResources>
-            <testResource>
+            <testResource>            				
                 <directory>webapp/WEB-INF/classes</directory>
             </testResource>
+        				<testResource>            				
+        					   <directory>src/test/resources</directory>
+        				</testResource>
         </testResources>   
         <plugins>
             <plugin>
@@ -87,6 +90,12 @@
                 <artifactId>maven-jetty-plugin</artifactId>
                 <configuration>
                     <webAppSourceDirectory>webapp</webAppSourceDirectory>
+			                	<connectors>
+			                		<connector implementation="org.mortbay.jetty.nio.SelectChannelConnector">
+			                			<port>8080</port>
+			                			<maxIdleTime>60000</maxIdleTime>
+			                		</connector>
+			                	</connectors>
                 </configuration>
             </plugin>
         </plugins>
